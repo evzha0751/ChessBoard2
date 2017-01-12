@@ -13,29 +13,7 @@ public class Chess extends javax.swing.JFrame {
 
     JLabel [] [] gridboard;
     
-    public void pawn(){
-        
-    }
     
-    public void rook(){
-        
-    }
-    
-    public void knight(){
-        
-    }
-    
-    public void bishop(){
-        
-    }
-    
-    public void queen(){
-        
-    }
-    
-    public void king(){
-        
-    }
     
     public Chess() {
         initComponents();
