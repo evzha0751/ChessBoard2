@@ -200,6 +200,11 @@ public class Chess extends javax.swing.JFrame {
 
         piecesPanel.setOpaque(false);
         piecesPanel.setPreferredSize(new java.awt.Dimension(600, 600));
+        piecesPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                piecesPanelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout piecesPanelLayout = new javax.swing.GroupLayout(piecesPanel);
         piecesPanel.setLayout(piecesPanelLayout);
@@ -268,14 +273,18 @@ public class Chess extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void piecesPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piecesPanelMouseClicked
         int x=evt.getX(),y=evt.getY();
         int LabelX,LabelY;
         
-        LabelX = (x-55)/75;
-        LabelY = (y-55)/75;
+        LabelX = x/75;
+        LabelY = y/75;
         System.out.println(x+" "+y);
         System.out.println(LabelX+" "+LabelY);
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_piecesPanelMouseClicked
 
     /**
      * @param args the command line arguments
