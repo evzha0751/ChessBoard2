@@ -5,15 +5,37 @@
  */
 package chess;
 import java.awt.*;
-import javax.swing.*;
+import java.awt.event.MouseEvent;
 import java.io.*;
+import javax.swing.*;
         
 public class Chess extends javax.swing.JFrame {
 
     JLabel [] [] gridboard;
     
+    public void pawn(){
+        
+    }
     
+    public void rook(){
+        
+    }
     
+    public void knight(){
+        
+    }
+    
+    public void bishop(){
+        
+    }
+    
+    public void queen(){
+        
+    }
+    
+    public void king(){
+        
+    }
     
     public Chess() {
         initComponents();
@@ -21,12 +43,11 @@ public class Chess extends javax.swing.JFrame {
         // make grid 
         gridboard = new JLabel [8][8];
         piecesPanel.setLayout(new GridLayout (8,8,0,0));
-        for (int x = 0; x < 8; x++){
-            for (int y = 0; y < 8; y++){
+        for (int y = 0; y < 8; y++){
+            for (int x = 0; x < 8; x++){
 //                String position = Integer.toString(x) + ", " + Integer.toString(y);
                 gridboard[x][y] = new JLabel(); //adds text for debugging
 //                gridboard[x][y].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                
                 
                 gridboard[x][y].setPreferredSize(new Dimension(75,75));
                 
@@ -55,97 +76,97 @@ public class Chess extends javax.swing.JFrame {
         icon[12] = new ImageIcon("src/chess/12.png");
         icon[13] = new ImageIcon("src/chess/13.png");
         
-        gridboard[5][0].setIcon(icon[13]);
+        gridboard[0][5].setIcon(icon[13]);
         
         //white-----------------------------------------------------------------
         // pawn
-        gridboard[6][0].setIcon(icon[1]);
-        gridboard[6][1].setIcon(icon[1]);
-        gridboard[6][2].setIcon(icon[1]);
-        gridboard[6][3].setIcon(icon[1]);
-        gridboard[6][4].setIcon(icon[1]);
-        gridboard[6][5].setIcon(icon[1]);
+        gridboard[0][6].setIcon(icon[1]);
+        gridboard[1][6].setIcon(icon[1]);
+        gridboard[2][6].setIcon(icon[1]);
+        gridboard[3][6].setIcon(icon[1]);
+        gridboard[4][6].setIcon(icon[1]);
+        gridboard[5][6].setIcon(icon[1]);
         gridboard[6][6].setIcon(icon[1]);
-        gridboard[6][7].setIcon(icon[1]);
+        gridboard[7][6].setIcon(icon[1]);
             // record pieces
             for(int i=0;i<8;i++)
-                pieces[6][i] = 1;
+                pieces[i][6] = 1;
                 
         // rook
-        gridboard[7][0].setIcon(icon[2]);
+        gridboard[0][7].setIcon(icon[2]);
         gridboard[7][7].setIcon(icon[2]);
              //record pieces
-            pieces[7][0]=2;
+            pieces[0][7]=2;
             pieces[7][7]=2;
             
         // knight
-        gridboard[7][1].setIcon(icon[3]);
-        gridboard[7][6].setIcon(icon[3]);
+        gridboard[1][7].setIcon(icon[3]);
+        gridboard[6][7].setIcon(icon[3]);
              //record pieces
-            pieces[7][1]=3;
-            pieces[7][6]=3;
+            pieces[1][7]=3;
+            pieces[6][7]=3;
             
         // bishop
-        gridboard[7][2].setIcon(icon[4]);
-        gridboard[7][5].setIcon(icon[4]);
+        gridboard[2][7].setIcon(icon[4]);
+        gridboard[5][7].setIcon(icon[4]);
              //record pieces
-            pieces[7][2]=4;
-            pieces[7][5]=4;
+            pieces[2][7]=4;
+            pieces[5][7]=4;
             
         //queen
-        gridboard[7][3].setIcon(icon[5]);
+        gridboard[3][7].setIcon(icon[5]);
              //record pieces
-            pieces[7][3]=5;
+            pieces[3][7]=5;
             
         //king
-        gridboard[7][4].setIcon(icon[6]);
+        gridboard[4][7].setIcon(icon[6]);
              //record pieces
-            pieces[7][4]=6;
+            pieces[4][7]=6;
             
         //black-----------------------------------------------------------------
         // pawn
-        gridboard[1][0].setIcon(icon[7]);
+        gridboard[0][1].setIcon(icon[7]);
         gridboard[1][1].setIcon(icon[7]);
-        gridboard[1][2].setIcon(icon[7]);
-        gridboard[1][3].setIcon(icon[7]);
-        gridboard[1][4].setIcon(icon[7]);
-        gridboard[1][5].setIcon(icon[7]);
-        gridboard[1][6].setIcon(icon[7]);
-        gridboard[1][7].setIcon(icon[7]);
+        gridboard[2][1].setIcon(icon[7]);
+        gridboard[3][1].setIcon(icon[7]);
+        gridboard[4][1].setIcon(icon[7]);
+        gridboard[5][1].setIcon(icon[7]);
+        gridboard[6][1].setIcon(icon[7]);
+        gridboard[7][1].setIcon(icon[7]);
             // record pieces
             for(int i=0;i<8;i++)
-                pieces[1][i] = 1;
+                pieces[i][1] = 1;
                 
         // rook
         gridboard[0][0].setIcon(icon[8]);
-        gridboard[0][7].setIcon(icon[8]);
+        gridboard[7][0].setIcon(icon[8]);
             //record pieces
             pieces[0][0]=8;
-            pieces[0][7]=8;
+            pieces[7][0]=8;
             
         // knight
-        gridboard[0][1].setIcon(icon[9]);
-        gridboard[0][6].setIcon(icon[9]);
+        gridboard[1][0].setIcon(icon[9]);
+        gridboard[6][0].setIcon(icon[9]);
             //record pieces
-            pieces[0][1]=9;
-            pieces[0][6]=9;
+            pieces[1][0]=9;
+            pieces[6][0]=9;
           
         // bishop
-        gridboard[0][2].setIcon(icon[10]);
-        gridboard[0][5].setIcon(icon[10]);
+        gridboard[2][0].setIcon(icon[10]);
+        gridboard[5][0].setIcon(icon[10]);
             //record pieces
-            pieces[0][2]=10;
-            pieces[0][5]=10;
+            pieces[2][0]=10;
+            pieces[5][0]=10;
           
         //queen
-        gridboard[0][3].setIcon(icon[11]);
+        gridboard[3][0].setIcon(icon[11]);
             //record pieces
-            pieces[0][3]=11;
+            pieces[3][0]=11;
             
         //king
-        gridboard[0][4].setIcon(icon[12]);
+        gridboard[4][0].setIcon(icon[12]);
             //record pieces
-            pieces[0][4]=12;
+            pieces[4][0]=12;
     }
 
     /**
@@ -172,6 +193,11 @@ public class Chess extends javax.swing.JFrame {
         backgroundPanel.setPreferredSize(new java.awt.Dimension(710, 710));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/chess/chessboard.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
         backgroundPanel.setLayout(backgroundPanelLayout);
@@ -263,9 +289,21 @@ public class Chess extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        int x=evt.getX(),y=evt.getY();
+        int LabelX,LabelY;
+        
+        LabelX = (x-55)/75;
+        LabelY = (y-55)/75;
+        System.out.println(x+" "+y);
+        System.out.println(LabelX+" "+LabelY);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
     /**
      * @param args the command line arguments
      */
+    
+  
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -297,6 +335,8 @@ public class Chess extends javax.swing.JFrame {
             }
         });
     }
+    
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backgroundPanel;
@@ -304,4 +344,8 @@ public class Chess extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel piecesPanel;
     // End of variables declaration//GEN-END:variables
+    
+    
+    
+    
 }
