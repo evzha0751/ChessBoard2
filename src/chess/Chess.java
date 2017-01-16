@@ -89,13 +89,15 @@ public class Chess extends javax.swing.JFrame {
                 }
             }
         }
+        
     }
     
     public Chess() {
         initComponents();
-        piecesPanel1.setBounds(55,55,600,600);
+        //piecesPanel1.setBounds(55,55,600,600);
         // make grid 
         gridboard = new JLabel [8][8];
+        ImageIcon greenBox = new ImageIcon("src/chess/13.png");
         piecesPanel.setLayout(new GridLayout (8,8,0,0));
         for (int y = 0; y < 8; y++){
             for (int x = 0; x < 8; x++){
@@ -315,11 +317,11 @@ public class Chess extends javax.swing.JFrame {
         piecesPanel1.setLayout(piecesPanel1Layout);
         piecesPanel1Layout.setHorizontalGroup(
             piecesPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 625, Short.MAX_VALUE)
         );
         piecesPanel1Layout.setVerticalGroup(
             piecesPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 625, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout chessPanelLayout = new javax.swing.GroupLayout(chessPanel);
@@ -338,10 +340,10 @@ public class Chess extends javax.swing.JFrame {
                     .addComponent(backgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(chessPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(chessPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(piecesPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(100, Short.MAX_VALUE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chessPanelLayout.createSequentialGroup()
+                    .addContainerGap(40, Short.MAX_VALUE)
+                    .addComponent(piecesPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(45, 45, 45)))
         );
         chessPanelLayout.setVerticalGroup(
             chessPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,10 +359,10 @@ public class Chess extends javax.swing.JFrame {
                     .addComponent(backgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(chessPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(chessPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(piecesPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(100, Short.MAX_VALUE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chessPanelLayout.createSequentialGroup()
+                    .addContainerGap(40, Short.MAX_VALUE)
+                    .addComponent(piecesPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(45, 45, 45)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -368,9 +370,8 @@ public class Chess extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 7, Short.MAX_VALUE)
                 .addComponent(chessPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -389,22 +390,45 @@ public class Chess extends javax.swing.JFrame {
     private void piecesPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piecesPanelMouseClicked
         int x=evt.getX(),y=evt.getY();
         int LabelX,LabelY;
-        ImageIcon[] icon = new ImageIcon("src/chess/13.png");
+        ImageIcon greenBox = new ImageIcon("src/chess/13.png");
         boolean[][] valid;
         LabelY = x/75;
         LabelX = 7-y/75;
         System.out.println(LabelX+" "+LabelY);
+        
+        gridboard1 = new JLabel [8][8];
+        /*for (int q = 0; q < 8; q++){
+            for (int w = 0; w < 8; w++){
+//                String position = Integer.toString(x) + ", " + Integer.toString(y);
+                gridboard1[7-q][7-w] = new JLabel(); //adds text for debugging
+//                gridboard[x][y].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                
+                gridboard1[7-q][7-w].setPreferredSize(new Dimension(75,75));
+                
+                piecesPanel1.add(gridboard1[7-q][7-w]);
+                
+            }
+        }*/
+        
+        
         if(game.b.board[LabelX][LabelY][0]!=null){
             valid=game.b.analyzeBoard(0,LabelX,LabelY);
             for(int j=0;j<8;j++){
             for(int i=0;i<8;i++){
-            if(valid[i][j]==true){
-                gridboard1[i][j].setIcon(icon[13]);
+            if(valid[i][j]){
+                gridboard1[i][j].setIcon(greenBox);
             }
             }
             }
         }else if(game.b.board[LabelX][LabelY][1]!=null){
             valid=game.b.analyzeBoard(1,LabelX,LabelY);
+             for(int j=0;j<8;j++){
+            for(int i=0;i<8;i++){
+            if(valid[i][j]){
+                gridboard1[i][j].setIcon(greenBox);
+            }
+            }
+            }
         }
     }//GEN-LAST:event_piecesPanelMouseClicked
 
