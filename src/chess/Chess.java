@@ -18,7 +18,7 @@ public class Chess extends javax.swing.JFrame {
     AI aiPlayer=new AI(1);
     
     public void display(){
-        ImageIcon[] icon = new ImageIcon[14];
+        ImageIcon[] icon = new ImageIcon[13];
         icon[0] = new ImageIcon("src/chess/0.png");
         icon[1] = new ImageIcon("src/chess/1.png");
         icon[2] = new ImageIcon("src/chess/2.png");
@@ -32,7 +32,6 @@ public class Chess extends javax.swing.JFrame {
         icon[10] = new ImageIcon("src/chess/10.png");
         icon[11] = new ImageIcon("src/chess/11.png");
         icon[12] = new ImageIcon("src/chess/12.png");
-        icon[13] = new ImageIcon("src/chess/13.png");
         for(int j=0;j<8;j++){
             for(int i=0;i<8;i++){
                 if(game.b.board[i][j][0]!=null){
@@ -87,6 +86,9 @@ public class Chess extends javax.swing.JFrame {
                             gridboard[i][j].setIcon(icon[0]);
                     }
                 }
+                if(game.b.board[i][j][1]==null&&game.b.board[i][j][0]==null){
+                    gridboard[i][j].setIcon(icon[0]);
+                }
             }
         }
         
@@ -113,131 +115,8 @@ public class Chess extends javax.swing.JFrame {
         }
         
         // make grid 
-        gridboard1 = new JLabel [8][8];
-        piecesPanel1.setLayout(new GridLayout (8,8,0,0));
-        for (int y = 0; y < 8; y++){
-            for (int x = 0; x < 8; x++){
-//                String position = Integer.toString(x) + ", " + Integer.toString(y);
-                gridboard1[7-y][7-x] = new JLabel(); //adds text for debugging
-//                gridboard[x][y].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                
-                gridboard1[7-y][7-x].setPreferredSize(new Dimension(75,75));
-                
-                piecesPanel1.add(gridboard1[7-y][7-x]);
-                
-            }
-        }
-        // array for recording pieces
-    //    int[][] pieces = new int[8][8];
         
-        // add array for icons
-        /*ImageIcon[] icon = new ImageIcon[14];
-        icon[0] = new ImageIcon("src/chess/0.png");
-        icon[1] = new ImageIcon("src/chess/1.png");
-        icon[2] = new ImageIcon("src/chess/2.png");
-        icon[3] = new ImageIcon("src/chess/3.png");
-        icon[4] = new ImageIcon("src/chess/4.png");
-        icon[5] = new ImageIcon("src/chess/5.png");
-        icon[6] = new ImageIcon("src/chess/6.png");
-        icon[7] = new ImageIcon("src/chess/7.png");
-        icon[8] = new ImageIcon("src/chess/8.png");
-        icon[9] = new ImageIcon("src/chess/9.png");
-        icon[10] = new ImageIcon("src/chess/10.png");
-        icon[11] = new ImageIcon("src/chess/11.png");
-        icon[12] = new ImageIcon("src/chess/12.png");
-        icon[13] = new ImageIcon("src/chess/13.png");*/
         
-    /*    gridboard[0][5].setIcon(icon[13]);
-        
-        //white-----------------------------------------------------------------
-        // pawn
-        gridboard[0][6].setIcon(icon[1]);
-        gridboard[1][6].setIcon(icon[1]);
-        gridboard[2][6].setIcon(icon[1]);
-        gridboard[3][6].setIcon(icon[1]);
-        gridboard[4][6].setIcon(icon[1]);
-        gridboard[5][6].setIcon(icon[1]);
-        gridboard[6][6].setIcon(icon[1]);
-        gridboard[7][6].setIcon(icon[1]);
-            // record pieces
-            for(int i=0;i<8;i++)
-                pieces[i][6] = 1;
-                
-        // rook
-        gridboard[0][7].setIcon(icon[2]);
-        gridboard[7][7].setIcon(icon[2]);
-             //record pieces
-            pieces[0][7]=2;
-            pieces[7][7]=2;
-            
-        // knight
-        gridboard[1][7].setIcon(icon[3]);
-        gridboard[6][7].setIcon(icon[3]);
-             //record pieces
-            pieces[1][7]=3;
-            pieces[6][7]=3;
-            
-        // bishop
-        gridboard[2][7].setIcon(icon[4]);
-        gridboard[5][7].setIcon(icon[4]);
-             //record pieces
-            pieces[2][7]=4;
-            pieces[5][7]=4;
-            
-        //queen
-        gridboard[3][7].setIcon(icon[5]);
-             //record pieces
-            pieces[3][7]=5;
-            
-        //king
-        gridboard[4][7].setIcon(icon[6]);
-             //record pieces
-            pieces[4][7]=6;
-            
-        //black-----------------------------------------------------------------
-        // pawn
-        gridboard[0][1].setIcon(icon[7]);
-        gridboard[1][1].setIcon(icon[7]);
-        gridboard[2][1].setIcon(icon[7]);
-        gridboard[3][1].setIcon(icon[7]);
-        gridboard[4][1].setIcon(icon[7]);
-        gridboard[5][1].setIcon(icon[7]);
-        gridboard[6][1].setIcon(icon[7]);
-        gridboard[7][1].setIcon(icon[7]);
-            // record pieces
-            for(int i=0;i<8;i++)
-                pieces[i][1] = 1;
-                
-        // rook
-        gridboard[0][0].setIcon(icon[8]);
-        gridboard[7][0].setIcon(icon[8]);
-            //record pieces
-            pieces[0][0]=8;
-            pieces[7][0]=8;
-            
-        // knight
-        gridboard[1][0].setIcon(icon[9]);
-        gridboard[6][0].setIcon(icon[9]);
-            //record pieces
-            pieces[1][0]=9;
-            pieces[6][0]=9;
-          
-        // bishop
-        gridboard[2][0].setIcon(icon[10]);
-        gridboard[5][0].setIcon(icon[10]);
-            //record pieces
-            pieces[2][0]=10;
-            pieces[5][0]=10;
-          
-        //queen
-        gridboard[3][0].setIcon(icon[11]);
-            //record pieces
-            pieces[3][0]=11;
-            
-        //king
-        gridboard[4][0].setIcon(icon[12]);
-            //record pieces
-            pieces[4][0]=12;*/
         display();
     }
 
@@ -390,34 +269,87 @@ public class Chess extends javax.swing.JFrame {
     private void piecesPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_piecesPanelMouseClicked
         int x=evt.getX(),y=evt.getY();
         int LabelX,LabelY;
-        ImageIcon greenBox = new ImageIcon("src/chess/13.png");
+        ImageIcon[] icon = new ImageIcon[13];
+        icon[0] = new ImageIcon("src/chess/g0.png");
+        icon[1] = new ImageIcon("src/chess/g1.png");
+        icon[2] = new ImageIcon("src/chess/g2.png");
+        icon[3] = new ImageIcon("src/chess/g3.png");
+        icon[4] = new ImageIcon("src/chess/g4.png");
+        icon[5] = new ImageIcon("src/chess/g5.png");
+        icon[6] = new ImageIcon("src/chess/g6.png");
+        icon[7] = new ImageIcon("src/chess/g7.png");
+        icon[8] = new ImageIcon("src/chess/g8.png");
+        icon[9] = new ImageIcon("src/chess/g9.png");
+        icon[10] = new ImageIcon("src/chess/g10.png");
+        icon[11] = new ImageIcon("src/chess/g11.png");
+        icon[12] = new ImageIcon("src/chess/g12.png");
         boolean[][] valid;
         LabelY = x/75;
         LabelX = 7-y/75;
         System.out.println(LabelX+" "+LabelY);
-        
-        gridboard1 = new JLabel [8][8];
-        /*for (int q = 0; q < 8; q++){
-            for (int w = 0; w < 8; w++){
-//                String position = Integer.toString(x) + ", " + Integer.toString(y);
-                gridboard1[7-q][7-w] = new JLabel(); //adds text for debugging
-//                gridboard[x][y].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                
-                gridboard1[7-q][7-w].setPreferredSize(new Dimension(75,75));
-                
-                piecesPanel1.add(gridboard1[7-q][7-w]);
-                
-            }
-        }*/
-        
-        
+        display();
         if(game.b.board[LabelX][LabelY][0]!=null){
             valid=game.b.analyzeBoard(0,LabelX,LabelY);
             for(int j=0;j<8;j++){
             for(int i=0;i<8;i++){
             if(valid[i][j]){
-                gridboard1[i][j].setIcon(greenBox);
+                if(game.b.board[i][j][0]!=null){
+                    switch(game.b.board[i][j][0]){
+                        case PAWNINDANGER:
+                        case NEWPAWN:
+                        case PAWN:
+                            gridboard[i][j].setIcon(icon[1]);
+                            break;
+                        case ROOK:
+                            gridboard[i][j].setIcon(icon[2]);
+                            break;
+                        case KNIGHT:
+                            gridboard[i][j].setIcon(icon[3]);
+                            break;
+                        case BISHOP:
+                            gridboard[i][j].setIcon(icon[4]);
+                            break;
+                        case QUEEN:
+                            gridboard[i][j].setIcon(icon[5]);
+                            break;
+                        case KING:
+                            gridboard[i][j].setIcon(icon[6]);
+                            break;
+                        default:
+                            gridboard[i][j].setIcon(icon[0]);
+                    }
+                }
+                if(game.b.board[i][j][1]!=null){
+                    switch(game.b.board[i][j][1]){
+                        case PAWNINDANGER:
+                        case NEWPAWN:
+                        case PAWN:
+                            gridboard[i][j].setIcon(icon[7]);
+                            break;
+                        case ROOK:
+                            gridboard[i][j].setIcon(icon[8]);
+                            break;
+                        case KNIGHT:
+                            gridboard[i][j].setIcon(icon[9]);
+                            break;
+                        case BISHOP:
+                            gridboard[i][j].setIcon(icon[10]);
+                            break;
+                        case QUEEN:
+                            gridboard[i][j].setIcon(icon[11]);
+                            break;
+                        case KING:
+                            gridboard[i][j].setIcon(icon[12]);
+                            break;
+                        default:
+                            gridboard[i][j].setIcon(icon[0]);
+                    }
+                }
+                if(game.b.board[i][j][1]==null&&game.b.board[i][j][0]==null){
+                    gridboard[i][7-j].setIcon(icon[0]);
+                }
             }
+            
             }
             }
         }else if(game.b.board[LabelX][LabelY][1]!=null){
@@ -425,7 +357,7 @@ public class Chess extends javax.swing.JFrame {
              for(int j=0;j<8;j++){
             for(int i=0;i<8;i++){
             if(valid[i][j]){
-                gridboard1[i][j].setIcon(greenBox);
+              //  gridboard1[i][j].setIcon(greenBox);
             }
             }
             }
