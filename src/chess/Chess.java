@@ -423,8 +423,8 @@ public class Chess extends javax.swing.JFrame {
             game.saveUndo();
             p[moveNum].move(selectX,selectY,LabelX,LabelY,game);
             if(game.b.board[LabelX][LabelY][moveNum]!=null){
-                //moveNum=(moveNum-1)*(moveNum-1);
-                ((AI)p[1]).calculateMove(1,game);
+                moveNum=(moveNum-1)*(moveNum-1);
+                //((AI)p[1]).calculateMove(1,game);
                // moveNum=(moveNum-1)*(moveNum-1);
             }
             pieceSelected=false;
@@ -453,6 +453,10 @@ public class Chess extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         game.b=game.undoBoard.clone();
+        
+        // 2 players
+        moveNum=(moveNum-1)*(moveNum-1);
+        
         display();
     }//GEN-LAST:event_jButton2ActionPerformed
 
