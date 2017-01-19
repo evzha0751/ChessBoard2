@@ -27,7 +27,18 @@ public class Game {
         //GOTTA INCLUDE PAWN->QUEEN RULE
         validMove=b.analyzeBoard(p,a,c);
         if(validMove[x][y]){
+            if(b.board[a][c][p]==Piece.NEWPAWN){
+                if(a==3){
+                    b.board[a][c][p]=Piece.PAWNINDANGER;
+                }else{
+                    b.board[a][c][p]=Piece.PAWN;
+                }
+            }
+            if(b.board[a][c][p]==Piece.PAWNINDANGER){
+                b.board[a][c][p]=Piece.PAWN;
+            }
             b.board[x][y][p]=b.board[a][c][p];
+            b.board[x][y][(p-1)*(p-1)]=null;
             b.board[a][c][p]=null;
         }
     }

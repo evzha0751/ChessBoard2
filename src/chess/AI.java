@@ -21,42 +21,49 @@ public class AI extends Player{
     public AI(int playerNum){
         super.playerNum=playerNum;
     }
-    public ArrayList AI(int n,Game g,int pNum){//n is AI difficulty
-    //ADD OPPONENT FACTOR
+    public ArrayList AI(int n,Game g,int pNum){
         boolean gotSomething=false;
+        int num=0;
         if(n==0){
             ArrayList<Double>tree=new ArrayList<>();
-            //tree.add(g.b.findBoardValue(pNum));
+            tree.add(g.b.findBoardValue()*(pNum-0.5));
             return tree;
         }else{
             ArrayList<ArrayList>tree=new ArrayList<>();
             for(int i1=0;i1<8;i1++){
                 for(int i2=0;i2<8;i2++){
                     if(g.b.board[i1][i2][pNum]!=null){
+                        g.validMove=g.b.analyzeBoard(pNum,i1,i2);
                         for(int j=0;j<8;j++){
                             for(int k=0;k<8;k++){
-                                g.validMove=g.b.analyzeBoard(pNum,j,k);
+                                if(g.validMove[j][k]){
+                                    num++;
+                                }
+                            }
+                        }
+                        System.out.println(num);
+                        for(int j=0;j<8;j++){
+                            for(int k=0;k<8;k++){
                                 if(g.validMove[j][k]){
                                     Game tempGame=g.clone();
-                                    tempGame.Move(i1, i2, j, k,-1*pNum);
+                                    tempGame.Move(i1, i2, j, k,pNum);
                                     tree.add(AI(n-1,tempGame,(pNum-1)*(pNum-1)));
                                     gotSomething=true;
                                 }
-                                if(!gotSomething){
-                                    if(n%2==1){
-                                        ArrayList<Double>check=new ArrayList<>();
-                                        //check.add(g.b.findBoardValue(pNum));
-                                        return check;
-                                    }else{
-                                        ArrayList<Double>check=new ArrayList<>();
-                                        //check.add(g.b.findBoardValue((pNum-1)*(pNum-1)));
-                                        return check;
-                                    }
-                                }
-                                gotSomething=false;
                             }
                         }
                     }
+                }
+            }
+            if(!gotSomething){
+                if(n%2==1){
+                    ArrayList<Double>check=new ArrayList<>();
+                    //check.add(g.b.findBoardValue(pNum));
+                    return check;
+                }else{
+                    ArrayList<Double>check=new ArrayList<>();
+                    //check.add(g.b.findBoardValue((pNum-1)*(pNum-1)));
+                    return check;
                 }
             }
             if(tree.isEmpty()){
@@ -70,7 +77,7 @@ public class AI extends Player{
         ArrayList<Double>r=new ArrayList<>();
         while(!a.isEmpty()){
             try{
-                int n=(int)a.get(0);
+                Double n=(Double)a.get(0);
                 pathStored.add(n);
                 a.remove((int)0);
             }catch(Exception e){
@@ -115,9 +122,9 @@ public class AI extends Player{
         for(int i1=0;i1<8;i1++){
             for(int i2=0;i2<8;i2++){
                 if(g.b.board[i1][i2][playerNum]!=null){
+                    g.validMove=g.b.analyzeBoard(playerNum,i1,i2);
                     for(int j=0;j<8;j++){
                         for(int k=0;k<8;k++){
-                            g.validMove=g.b.analyzeBoard(playerNum,j,k);
                             if(g.validMove[j][k]){
                                 num++;
                             }

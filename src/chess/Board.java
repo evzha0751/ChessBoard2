@@ -256,9 +256,7 @@ public class Board {
     public boolean[][] analyzeBoard(int p,int a,int b){
         boolean[][]r=new boolean[8][8];
         boolean[][]temp=analyzeWholeBoard((p-1)*(p-1),a,b);
-        if(board[a][b][p]==Piece.KING){
-            temp=analyzeWholeBoard((p-1)*(p-1),-1,-1);
-        }else{
+        if(board[a][b][p]!=Piece.KING){
             for(int m=0;m<8;m++){
                 for(int n=0;n<8;n++){
                     if(temp[m][n]&&board[m][n][p]==Piece.KING){
@@ -267,7 +265,7 @@ public class Board {
                 }
             }
         }
-        
+        if(board[a][b][p]!=null){
         switch(board[a][b][p]){
             case NEWPAWN:
                 if(board[a+2-4*p][b][p]==null&&board[a+2-4*p][b][(p-1)*(p-1)]==null){
@@ -295,20 +293,20 @@ public class Board {
                 int i,j,count=0;
                 for(int k=1;count<2;k*=-1){
                     i=a;j=b;
-                    while(i<8&&i>=0&&board[i][j][p]==null&&board[i][j][(p-1)*(p-1)]==null){
-                        r[i][j]=true;
+                    while(i+k<8&&i+k>=0&&board[i+k][j][p]==null&&board[i+k][j][(p-1)*(p-1)]==null){
+                        r[i+k][j]=true;
                         i+=k;
                     }
-                    if(board[i][j][(p-1)*(p-1)]!=null){
-                        r[i][j]=true;
+                    if(i+k<8&&i+k>=0&&board[i+k][j][(p-1)*(p-1)]!=null){
+                        r[i+k][j]=true;
                     }
                     i=a;j=b;
-                    while(j<8&&j>=0&&board[i][j][p]==null&&board[i][j][(p-1)*(p-1)]==null){
-                        r[i][j]=true;
+                    while(j+k<8&&j+k>=0&&board[i][j+k][p]==null&&board[i][j+k][(p-1)*(p-1)]==null){
+                        r[i][j+k]=true;
                         j+=k;
                     }
-                    if(board[i][j][(p-1)*(p-1)]!=null){
-                        r[i][j]=true;
+                    if(j+k<8&&j+k>=0&&board[i][j+k][(p-1)*(p-1)]!=null){
+                        r[i][j+k]=true;
                     }
                     count++;
                 }
@@ -343,15 +341,23 @@ public class Board {
                 count=0;
                 for(int k=1;count<2;k*=-1){
                     i=a;j=b;
-                    while(j<8&&j>=0&&i<8&&i>=0&&board[i][j][p]==null&&board[i][j][(p-1)*(p-1)]==null){
-                        r[i][j]=true;
+                    while(j+k<8&&j+k>=0&&i+k<8&&i+k>=0&&board[i+k][j+k][p]==null&&board[i+k][j+k][(p-1)*(p-1)]==null){
+                        r[i+k][j+k]=true;
                         i+=k;
                         j+=k;
                     }
-                    if(board[i][j][(p-1)*(p-1)]!=null){
-                        r[i][j]=true;
+                    if(j+k<8&&j+k>=0&&i+k<8&&i+k>=0&&board[i+k][j+k][(p-1)*(p-1)]!=null){
+                        r[i+k][j+k]=true;
                     }
-                    
+                    i=a;j=b;
+                    while(j-k<8&&j-k>=0&&i+k<8&&i+k>=0&&board[i+k][j-k][p]==null&&board[i+k][j-k][(p-1)*(p-1)]==null){
+                        r[i+k][j-k]=true;
+                        i+=k;
+                        j-=k;
+                    }
+                    if(j-k<8&&j-k>=0&&i+k<8&&i+k>=0&&board[i+k][j-k][(p-1)*(p-1)]!=null){
+                        r[i+k][j-k]=true;
+                    }
                     count++;
                 }
                 break;
@@ -359,32 +365,42 @@ public class Board {
                 count=0;
                 for(int k=1;count<2;k*=-1){
                     i=a;j=b;
-                    while(j<8&&j>=0&&i<8&&i>=0&&board[i][j][p]==null&&board[i][j][(p-1)*(p-1)]==null){
-                        r[i][j]=true;
+                    while(i+k<8&&i+k>=0&&board[i+k][j][p]==null&&board[i+k][j][(p-1)*(p-1)]==null){
+                        r[i+k][j]=true;
+                        i+=k;
+                    }
+                    if(i+k<8&&i+k>=0&&board[i+k][j][(p-1)*(p-1)]!=null){
+                        r[i+k][j]=true;
+                    }
+                    i=a;j=b;
+                    while(j+k<8&&j+k>=0&&board[i][j+k][p]==null&&board[i][j+k][(p-1)*(p-1)]==null){
+                        r[i][j+k]=true;
+                        j+=k;
+                    }
+                    if(j+k<8&&j+k>=0&&board[i][j+k][(p-1)*(p-1)]!=null){
+                        r[i][j+k]=true;
+                    }
+                    i=a;j=b;
+                    while(j+k<8&&j+k>=0&&i+k<8&&i+k>=0&&board[i+k][j+k][p]==null&&board[i+k][j+k][(p-1)*(p-1)]==null){
+                        r[i+k][j+k]=true;
                         i+=k;
                         j+=k;
                     }
-                    if(board[i][j][(p-1)*(p-1)]!=null){
-                        r[i][j]=true;
+                    if(j+k<8&&j+k>=0&&i+k<8&&i+k>=0&&board[i+k][j+k][(p-1)*(p-1)]!=null){
+                        r[i+k][j+k]=true;
                     }
                     i=a;j=b;
-                    while(i<8&&i>=0&&board[i][j][p]==null&&board[i][j][(p-1)*(p-1)]==null){
-                        r[i][j]=true;
+                    while(j-k<8&&j-k>=0&&i+k<8&&i+k>=0&&board[i+k][j-k][p]==null&&board[i+k][j-k][(p-1)*(p-1)]==null){
+                        r[i+k][j-k]=true;
                         i+=k;
+                        j-=k;
                     }
-                    if(board[i][j][(p-1)*(p-1)]!=null){
-                        r[i][j]=true;
-                    }
-                    i=a;j=b;
-                    while(j<8&&j>=0&&board[i][j][p]==null&&board[i][j][(p-1)*(p-1)]==null){
-                        r[i][j]=true;
-                        j+=k;
-                    }
-                    if(board[i][j][(p-1)*(p-1)]!=null){
-                        r[i][j]=true;
+                    if(j-k<8&&j-k>=0&&i+k<8&&i+k>=0&&board[i+k][j-k][(p-1)*(p-1)]!=null){
+                        r[i+k][j-k]=true;
                     }
                     count++;
                 }
+                break;
             case KING:
                 if(a+1<8&&b+1<8&&board[a+1][b+1][p]==null){
                     r[a+1][b+1]=true;
@@ -410,6 +426,7 @@ public class Board {
                 if(a+1<8&&board[a+1][b][p]==null){
                     r[a+1][b]=true;
                 }
+                temp=analyzeWholeBoard((p-1)*(p-1),a,b);
                 for(int m=0;m<8;m++){
                     for(int n=0;n<8;n++){
                         if(temp[m][n]){
@@ -418,6 +435,8 @@ public class Board {
                     }
                 }
             break;
+            default:
+        }
         }
         return r;
     }
@@ -463,20 +482,20 @@ public class Board {
                         int i,j,count=0;
                         for(int k=1;count<2;k*=-1){
                             i=a;j=b;
-                            while(i<8&&i>=0&&board[i][j][p]==null&&board[i][j][(p-1)*(p-1)]==null){
-                                r[i][j]=true;
+                            while(i+k<8&&i+k>=0&&board[i+k][j][p]==null&&board[i+k][j][(p-1)*(p-1)]==null){
+                                r[i+k][j]=true;
                                 i+=k;
                             }
-                            if(board[i][j][(p-1)*(p-1)]!=null){
-                                r[i][j]=true;
+                            if(i+k<8&&i+k>=0&&board[i+k][j][(p-1)*(p-1)]!=null){
+                                r[i+k][j]=true;
                             }
                             i=a;j=b;
-                            while(j<8&&j>=0&&board[i][j][p]==null&&board[i][j][(p-1)*(p-1)]==null){
-                                r[i][j]=true;
+                            while(j+k<8&&j+k>=0&&board[i][j+k][p]==null&&board[i][j+k][(p-1)*(p-1)]==null){
+                                r[i][j+k]=true;
                                 j+=k;
                             }
-                            if(board[i][j][(p-1)*(p-1)]!=null){
-                                r[i][j]=true;
+                            if(j+k<8&&j+k>=0&&board[i][j+k][(p-1)*(p-1)]!=null){
+                                r[i][j+k]=true;
                             }
                             count++;
                         }
@@ -511,15 +530,23 @@ public class Board {
                         count=0;
                         for(int k=1;count<2;k*=-1){
                             i=a;j=b;
-                            while(j<8&&j>=0&&i<8&&i>=0&&board[i][j][p]==null&&board[i][j][(p-1)*(p-1)]==null){
-                                r[i][j]=true;
+                            while(j+k<8&&j+k>=0&&i+k<8&&i+k>=0&&board[i+k][j+k][p]==null&&board[i+k][j+k][(p-1)*(p-1)]==null){
+                                r[i+k][j+k]=true;
                                 i+=k;
                                 j+=k;
                             }
-                            if(board[i][j][(p-1)*(p-1)]!=null){
-                                r[i][j]=true;
+                            if(j+k<8&&j+k>=0&&i+k<8&&i+k>=0&&board[i+k][j+k][(p-1)*(p-1)]!=null){
+                                r[i+k][j+k]=true;
                             }
-
+                            i=a;j=b;
+                            while(j-k<8&&j-k>=0&&i+k<8&&i+k>=0&&board[i+k][j-k][p]==null&&board[i+k][j-k][(p-1)*(p-1)]==null){
+                                r[i+k][j-k]=true;
+                                i+=k;
+                                j-=k;
+                            }
+                            if(j-k<8&&j-k>=0&&i+k<8&&i+k>=0&&board[i+k][j-k][(p-1)*(p-1)]!=null){
+                                r[i+k][j-k]=true;
+                            }
                             count++;
                         }
                         break;
@@ -527,29 +554,38 @@ public class Board {
                         count=0;
                         for(int k=1;count<2;k*=-1){
                             i=a;j=b;
-                            while(j<8&&j>=0&&i<8&&i>=0&&board[i][j][p]==null&&board[i][j][(p-1)*(p-1)]==null){
-                                r[i][j]=true;
+                            while(i+k<8&&i+k>=0&&board[i+k][j][p]==null&&board[i+k][j][(p-1)*(p-1)]==null){
+                                r[i+k][j]=true;
+                                i+=k;
+                            }
+                            if(i+k<8&&i+k>=0&&board[i+k][j][(p-1)*(p-1)]!=null){
+                                r[i+k][j]=true;
+                            }
+                            i=a;j=b;
+                            while(j+k<8&&j+k>=0&&board[i][j+k][p]==null&&board[i][j+k][(p-1)*(p-1)]==null){
+                                r[i][j+k]=true;
+                                j+=k;
+                            }
+                            if(j+k<8&&j+k>=0&&board[i][j+k][(p-1)*(p-1)]!=null){
+                                r[i][j+k]=true;
+                            }
+                            i=a;j=b;
+                            while(j+k<8&&j+k>=0&&i+k<8&&i+k>=0&&board[i+k][j+k][p]==null&&board[i+k][j+k][(p-1)*(p-1)]==null){
+                                r[i+k][j+k]=true;
                                 i+=k;
                                 j+=k;
                             }
-                            if(board[i][j][(p-1)*(p-1)]!=null){
-                                r[i][j]=true;
+                            if(j+k<8&&j+k>=0&&i+k<8&&i+k>=0&&board[i+k][j+k][(p-1)*(p-1)]!=null){
+                                r[i+k][j+k]=true;
                             }
                             i=a;j=b;
-                            while(i<8&&i>=0&&board[i][j][p]==null&&board[i][j][(p-1)*(p-1)]==null){
-                                r[i][j]=true;
+                            while(j-k<8&&j-k>=0&&i+k<8&&i+k>=0&&board[i+k][j-k][p]==null&&board[i+k][j-k][(p-1)*(p-1)]==null){
+                                r[i+k][j-k]=true;
                                 i+=k;
+                                j-=k;
                             }
-                            if(board[i][j][(p-1)*(p-1)]!=null){
-                                r[i][j]=true;
-                            }
-                            i=a;j=b;
-                            while(j<8&&j>=0&&board[i][j][p]==null&&board[i][j][(p-1)*(p-1)]==null){
-                                r[i][j]=true;
-                                j+=k;
-                            }
-                            if(board[i][j][(p-1)*(p-1)]!=null){
-                                r[i][j]=true;
+                            if(j-k<8&&j-k>=0&&i+k<8&&i+k>=0&&board[i+k][j-k][(p-1)*(p-1)]!=null){
+                                r[i+k][j-k]=true;
                             }
                             count++;
                         }
