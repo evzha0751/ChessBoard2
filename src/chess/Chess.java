@@ -274,6 +274,11 @@ public class Chess extends javax.swing.JFrame {
         });
 
         jButton2.setText("UNDO!");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("EXIT");
 
@@ -415,6 +420,7 @@ public class Chess extends javax.swing.JFrame {
             }
             }
         }else if(pieceSelected){
+            game.saveUndo();
             p[moveNum].move(selectX,selectY,LabelX,LabelY,game);
             if(game.b.board[LabelX][LabelY][moveNum]!=null){
                 //moveNum=(moveNum-1)*(moveNum-1);
@@ -424,6 +430,7 @@ public class Chess extends javax.swing.JFrame {
             pieceSelected=false;
             display();
         }
+        
         
     }//GEN-LAST:event_piecesPanelMouseClicked
 
@@ -442,6 +449,12 @@ public class Chess extends javax.swing.JFrame {
         }
         display();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        game.b=game.undoBoard.clone();
+        display();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
