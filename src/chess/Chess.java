@@ -424,8 +424,8 @@ public class Chess extends javax.swing.JFrame {
             p[moveNum].move(selectX,selectY,LabelX,LabelY,game);
             if(game.b.board[LabelX][LabelY][moveNum]!=null){
                 moveNum=(moveNum-1)*(moveNum-1);
-                //((AI)p[1]).calculateMove(1,game);
-               // moveNum=(moveNum-1)*(moveNum-1);
+                ((AI)p[1]).calculateMove(3,game);
+                moveNum=(moveNum-1)*(moveNum-1);
             }
             pieceSelected=false;
             display();
@@ -455,7 +455,7 @@ public class Chess extends javax.swing.JFrame {
         game.b=game.undoBoard.clone();
         
         // 2 players
-        moveNum=(moveNum-1)*(moveNum-1);
+        //moveNum=(moveNum-1)*(moveNum-1);
         
         display();
     }//GEN-LAST:event_jButton2ActionPerformed
